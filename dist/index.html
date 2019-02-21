@@ -1,0 +1,83 @@
+<!--
+Copyright 2018 Google LLC. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+==============================================================================
+-->
+
+<!-- This tiny example illustrates how little code is necessary build
+/ train / predict from a model in TensorFlow.js.  Edit the associated
+index.js code and refresh this file in your browser to quickly
+explore the API. -->
+
+
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="./index.js" type="module"> </script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Rendu projet</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="#">Accueil <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="#">Choix techniques</a>
+            <a class="nav-item nav-link" href="#">Fonctionnement</a>
+          </div>
+        </div>
+      </nav>
+      <div class="container-fluid">
+        <div class="row">
+
+          <label for="sepal_length">Sepal Length</label>
+          <input id="sepal_length" type="number" step="0.01">
+          
+          <label for="sepal_width">Sepal Width</label>
+          <input id="sepal_width" type="number" step="0.01">
+
+          <label for="petal_length">Petal Length</label>
+          <input id="petal_length" type="number" step="0.01">
+
+          <label for="petal_width">Petal Width</label>
+          <input id="petal_width" type="number" step="0.01">
+
+          <button  class="btn btn-primary" id="testbtn" >Tester</button>
+
+        </div>
+
+        <div id="results">
+
+
+        </div>
+        </div>
+
+
+
+  <div id="micro-out-div">Training...</div>
+  
+
+
+  
+
+</body>
+
+</html>
