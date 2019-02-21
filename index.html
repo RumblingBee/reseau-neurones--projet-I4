@@ -2,95 +2,98 @@
 
 <head>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="./index.js" type="module"> </script>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Rendu projet</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="#">Accueil <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="#">Choix techniques</a>
-            <a class="nav-item nav-link" href="#">Fonctionnement</a>
-          </div>
-        </div>
-      </nav>
-      <div class="container-fluid">
-        <div class="row">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Rendu projet</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="#">Accueil <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" href="#">Choix techniques</a>
+        <a class="nav-item nav-link" href="#">Fonctionnement</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
 
-          <div class = "col-lg-6" id="irisForm">
+      <div class="col-lg-6" id="irisForm">
+        <p> Vous pouvez renseigner les caractéristiques d'une iris pour déterminer son sous-genre. </p>
 
-          <label for="sepal_length">Sepal Length</label>
-          <input id="sepal_length" type="number" step="0.01"><br/>
-          
-          <label for="sepal_width">Sepal Width</label>
-          <input id="sepal_width" type="number" step="0.01"><br/>
+        <label for="sepal_length">Sepal Length</label>
+        <input id="sepal_length" type="number" step="0.01"><br />
 
-          <label for="petal_length">Petal Length</label>
-          <input id="petal_length" type="number" step="0.01"><br/>
+        <label for="sepal_width">Sepal Width</label>
+        <input id="sepal_width" type="number" step="0.01"><br />
 
-          <label for="petal_width">Petal Width</label>
-          <input id="petal_width" type="number" step="0.01"><br/>
+        <label for="petal_length">Petal Length</label>
+        <input id="petal_length" type="number" step="0.01"><br />
 
-          <br/><button  class="btn btn-primary" id="testbtn" >Tester</button>
-        </div>
-        <div class= "col-lg-6">
-          <h4> Exemples de données</h4>
-          <p>
+        <label for="petal_width">Petal Width</label>
+        <input id="petal_width" type="number" step="0.01"><br />
 
-                "sepal_length": 5.4,          <br/>
-                "sepal_width": 3.9,<br/>
-                "petal_length": 1.7,<br/>
-                "petal_width": 0.4,<br/>
-                "species": "setosa"<br/>
-<br/>
-                "sepal_length": 5.9,<br/>
-                "sepal_width": 3,<br/>
-                "petal_length": 5.1,<br/>
-                "petal_width": 1.8,<br/>
-                "species": "virginica"<br/>
-<br/>
-                "sepal_length": 5.7,<br/>
-                "sepal_width": 2.9,<br/>
-                "petal_length": 4.2,<br/>
-                "petal_width": 1.3,<br/>
-                "species": "versicolor"<br/>
+        <br /><button class="btn btn-primary" id="testbtn">Tester</button>
+      </div>
+      <div class="col-lg-6" id="exemple">
+        <h4> Exemples de données</h4>
+        <p>
 
-          </p>
+          "sepal_length": 5.4, <br />
+          "sepal_width": 3.9,<br />
+          "petal_length": 1.7,<br />
+          "petal_width": 0.4,<br />
+          "species": "setosa"<br />
+          <br />
+          "sepal_length": 5.9,<br />
+          "sepal_width": 3,<br />
+          "petal_length": 5.1,<br />
+          "petal_width": 1.8,<br />
+          "species": "virginica"<br />
+          <br />
+          "sepal_length": 5.7,<br />
+          "sepal_width": 2.9,<br />
+          "petal_length": 4.2,<br />
+          "petal_width": 1.3,<br />
+          "species": "versicolor"<br />
 
-
-
-        </div>
-
-        </div>
-        <div class="row">
-          <div class= "col-lg-6">
-            <h4> Résultat:</h4>
-          </div>
+        </p>
 
 
-        </div>
 
-        <div id="results">
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-lg-6" id="results">
+
+        <h4> Résultat:</h4>
 
 
-        </div>
-        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
 
 
 
   <div id="entrainement">Entrainement en cours, merci de patienter...</div>
-  
 
 
-  
+
+
 
 </body>
 

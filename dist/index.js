@@ -5,6 +5,8 @@ async function run() {
 
   // On cache le formulaire pendant l'apprentissage
   $( "#irisForm" ).toggle();
+  $( "#exemple" ).toggle();
+  $( "#results" ).toggle();
 
   // Données pour l'entrainement
   var iris = [{
@@ -1090,6 +1092,8 @@ async function run() {
       console.log('entrainement fini!');
       $( "#irisForm" ).toggle();
       $( "#entrainement").toggle();
+      $( "#exemple" ).toggle();
+      $( "#results" ).toggle();
 
 
     })
@@ -1164,6 +1168,8 @@ function testData() {
   console.log("virginica: " + array[1]);
 
   console.log("versicolor: " + array[2]);
+
+  $( "#results" ).append( "<p>setosa: " +array[0] + "<br/> virginica: " + array[1] + "<br/> versicolor:" + array[2]);
 
 }
 
