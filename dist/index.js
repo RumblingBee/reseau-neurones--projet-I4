@@ -1,4 +1,5 @@
 var model;
+var compteur = 0;
 
 
 async function run() {
@@ -1062,7 +1063,7 @@ async function run() {
   model.add(tf.layers.dense({
     inputShape: [4],
     activation: "sigmoid",
-    units: 5,
+    units: 4,
   }))
 
   // Première couche cachée
@@ -1169,7 +1170,40 @@ function testData() {
 
   console.log("versicolor: " + array[2]);
 
-  $( "#results" ).append( "<p>setosa: " +array[0] + "<br/> virginica: " + array[1] + "<br/> versicolor:" + array[2]);
+  //$( "#results" ).empty();
+  //$( "#results" ).append( "<p>setosa: " +array[0] + "<br/> virginica: " + array[1] + "<br/> versicolor:" + array[2]);
+  
+  compteur++
+
+  var d = new Date();
+  var h = d.getHours();
+  var m = d.getMinutes();
+  var s = d.getSeconds();
+
+  $( "#results" ).append(
+    '<div class="card col-lg-4">'+
+      '<div class="card-body">'+
+        '<h5 class="card-title">Test n°'+compteur+'</h5>'+
+        '<div class="progress">'+
+          '<div class="progress-bar bg-success" role="progressbar" style="width: '+(array[0] * 100)+'%" aria-valuenow="'+(array[0] * 100)+'" aria-valuemin="0" aria-valuemax="100">'+
+            'SETOSA : '+Math.round(array[0] * 100)+'%'+
+          '</div>'+
+        '</div>'+
+        '<div class="progress">'+
+          '<div class="progress-bar bg-info" role="progressbar" style="width: '+(array[2] * 100)+'%" aria-valuenow="'+(array[2] * 100)+'" aria-valuemin="0" aria-valuemax="100">'+
+            'VERSICOLOR : '+Math.round(array[2] * 100)+'%'+
+          '</div>'+
+        '</div>'+
+        '<div class="progress">'+
+          '<div class="progress-bar bg-danger" role="progressbar" style="width: '+(array[1] * 100)+'%" aria-valuenow="'+(array[1] * 100)+'" aria-valuemin="0" aria-valuemax="100">'+
+            'VIRGINICA : '+Math.round(array[1] * 100)+'%'+
+          '</div>'+
+        '</div>'+
+      '<div class="card-footer">'+
+        '<small class="text-muted">Date de mise à jour '+h+':'+m+':'+s+'</small>'+
+      '</div>'+
+    '</div>'
+    );
 
 }
 
