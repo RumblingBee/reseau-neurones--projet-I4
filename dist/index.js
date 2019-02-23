@@ -1,5 +1,6 @@
 var model;
 var compteur = 0;
+var fonctionActivation = document.getElementById("fonction_activation").value;
 
 
 
@@ -70,22 +71,36 @@ async function run() {
 
   // Les entrées
   model.add(tf.layers.dense({
-    inputShape: [4],
-    activation: "sigmoid",
-    units: 4,
+    inputShape: [parametres.length],
+    activation: fonctionActivation,
+    units: parseInt(document.getElementById("couche_entree").value),
   }))
 
-  // Première couche cachée
-  model.add(tf.layers.dense({
-    inputShape: [5],
-    activation: "sigmoid",
-    units: 3,
-  }))
+  for ( var j=1; j <= parseInt(document.getElementById("nb_couches_cachees")); j++ ){
+    
+    //Pour la première couche cachée
+    if(j == 1){
+      model.add(tf.layers.dense({
+        inputShape: [parseInt(document.getElementById("couche_entree"))],
+        activation: fonctionActivation,
+        units: parseInt(document.getElementById("couche_cachee"+j)),
+      }))
+    }
+
+    //Pour les autres couches cachées
+    else if(j > 1){
+    model.add(tf.layers.dense({
+      inputShape: [parseInt(document.getElementById("couche_cachee"+(j-1)))],
+      activation: fonctionActivation,
+      units: parseInt(document.getElementById("couche_cachee"+j)),
+    }))
+  }
+  }
 
   // Couche de sortie
   model.add(tf.layers.dense({
-    activation: "sigmoid",
-    units: 3,
+    activation: fonctionActivation,
+    units: parseInt(document.getElementById("couche_sortie").value),
   }))
 
   // Fonction d'erreur
@@ -154,7 +169,11 @@ function testData() {
 
   }
 
-
+/*************************************************************************
+ * 
+ *                    FONCTIONS D AFFICHAGE
+ * 
+ ************************************************************************/
 
   compteur++
 
@@ -192,11 +211,36 @@ function testData() {
 
 }
 
-run();
 
 
+
+$('#entrainerbtn').click(
+  function () {
+    run();
+  });
 
 $('#testbtn').click(
   function () {
     testData();
   });
+
+  $('#nb_couches_cachees').change(
+    function () {
+      afficherFormCoucheCachee(document.getElementById("nb_couches_cachees").value);
+    });
+
+
+function afficherFormCoucheCachee(value){
+  for(var i =1; i <= parseInt(value); i++){
+    $("#results").append(
+      '<div class="form-group">'+
+      '<label for="constante">Nombre de neuronnes de la couche cachee numéro' + i +'</label>' +
+      '<input type="number"  step="1" value="1" id="couche_cachee' + i +'">'+
+    '</div>'
+
+    )
+
+  }
+
+
+}
