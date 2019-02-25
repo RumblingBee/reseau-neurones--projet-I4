@@ -130,22 +130,11 @@ function testData() {
   console.log('test de l entree');
 
   //On récupère les caractéristiques de l'iris
-  /*
-  var sepalLength = parseFloat(document.getElementById("sepal_length").value);
-  var sepalWidth = parseFloat(document.getElementById("sepal_width").value);
-  var petalLength = parseFloat(document.getElementById("petal_length").value);
-  var petalWidth = parseFloat(document.getElementById("petal_width").value);
-*/
+
 
   var irisTesting = JSON.parse(document.getElementById("testing-datas").value);
   console.log("valeur des données à tester:" + irisTesting);
 
-  /*
-  irisTesting[0]['sepal_length'] = sepalLength;
-  irisTesting[0]['sepal_width'] = sepalWidth;
-  irisTesting[0]['petal_length'] = petalLength;
-  irisTesting[0]['petal_width'] = petalWidth;
-  */
 
   const testingData = tf.tensor2d(irisTesting.map(item => [
     item.sepal_length, item.sepal_width, item.petal_length, item.petal_width,
@@ -231,8 +220,9 @@ $('#testbtn').click(
 
 
 function afficherFormCoucheCachee(value){
+  $("#couches_cachees").empty();
   for(var i =1; i <= parseInt(value); i++){
-    $("#results").append(
+    $("#couches_cachees").append(
       '<div class="form-group">'+
       '<label for="constante">Nombre de neuronnes de la couche cachee numéro' + i +'</label>' +
       '<input type="number"  step="1" value="1" id="couche_cachee' + i +'">'+

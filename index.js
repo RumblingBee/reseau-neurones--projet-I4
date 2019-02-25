@@ -220,8 +220,9 @@ $('#testbtn').click(
 
 
 function afficherFormCoucheCachee(value){
+  $("#couches_cachees").empty();
   for(var i =1; i <= parseInt(value); i++){
-    $("#results").append(
+    $("#couches_cachees").append(
       '<div class="form-group">'+
       '<label for="constante">Nombre de neuronnes de la couche cachee numéro' + i +'</label>' +
       '<input type="number"  step="1" value="1" id="couche_cachee' + i +'">'+
