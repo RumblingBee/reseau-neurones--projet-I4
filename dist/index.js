@@ -1,7 +1,8 @@
 var model;
 var compteur = 0;
 var fonctionActivation = document.getElementById("fonction_activation").value;
-
+var outputList;
+outputList = [];
 
 
 async function run() {
@@ -10,6 +11,7 @@ async function run() {
   $("#irisForm").toggle();
   $("#exemple").toggle();
   $("#results").toggle();
+  $("#entrainement").toggle();
 
 
   var iris = JSON.parse(document.getElementById("training-datas").value);
@@ -33,7 +35,7 @@ async function run() {
   ))
   console.log("item: " + trainingData);
 
-  var outputList = document.getElementById("output-list").value.split(";");
+  outputList = document.getElementById("output-list").value.split(";");
   console.log("outputlist: " + outputList);
 
   //On définie les sorties possibles
@@ -76,25 +78,25 @@ async function run() {
     units: parseInt(document.getElementById("couche_entree").value),
   }))
 
-  for ( var j=1; j <= parseInt(document.getElementById("nb_couches_cachees")); j++ ){
-    
+  for (var j = 1; j <= parseInt(document.getElementById("nb_couches_cachees")); j++) {
+
     //Pour la première couche cachée
-    if(j == 1){
+    if (j == 1) {
       model.add(tf.layers.dense({
         inputShape: [parseInt(document.getElementById("couche_entree"))],
         activation: fonctionActivation,
-        units: parseInt(document.getElementById("couche_cachee"+j)),
+        units: parseInt(document.getElementById("couche_cachee" + j)),
       }))
     }
 
     //Pour les autres couches cachées
-    else if(j > 1){
-    model.add(tf.layers.dense({
-      inputShape: [parseInt(document.getElementById("couche_cachee"+(j-1)))],
-      activation: fonctionActivation,
-      units: parseInt(document.getElementById("couche_cachee"+j)),
-    }))
-  }
+    else if (j > 1) {
+      model.add(tf.layers.dense({
+        inputShape: [parseInt(document.getElementById("couche_cachee" + (j - 1)))],
+        activation: fonctionActivation,
+        units: parseInt(document.getElementById("couche_cachee" + j)),
+      }))
+    }
   }
 
   // Couche de sortie
@@ -119,6 +121,7 @@ async function run() {
       $("#entrainement").toggle();
       $("#exemple").toggle();
       $("#results").toggle();
+      $("#resultats").toggle();
 
 
     })
@@ -137,67 +140,63 @@ function testData() {
 
 
   const testingData = tf.tensor2d(irisTesting.map(item => [
-    item.sepal_length, item.sepal_width, item.petal_length, item.petal_width,
+    item.outputList[0], item.outputList[1], item.outputList[2], item.outputList[3],
   ]))
 
   console.log(irisTesting);
   // Prédiction des données de test
   model.predict(testingData).print();
   const values = model.predict(testingData);
-
+  
+    /*************************************************************************
+     * 
+     *                    FONCTIONS D AFFICHAGE
+     * 
+     ************************************************************************/
+  
 
   for (var i = 0; i < Object.keys(irisTesting).length; i++) {
 
     var array = Array.prototype.slice.call(values.slice([i, 0], 1).as1D().dataSync());
+    
+    var d = new Date();
+    var h = d.getHours();
+    var m = d.getMinutes();
+    var s = d.getSeconds();
 
-    console.log("setosa: " + array[0]);
+    $("#results").append(
+      '<div class="card col-lg-4">' +
+      '<div class="card-body">' +
+      '<h5 class="card-title">Test n°' + (i+1) + '</h5>' +
 
-    console.log("virginica: " + array[1]);
 
-    console.log("versicolor: " + array[2]);
+      '<div class="progress">' +
+      'SETOSA : ' +
+      '<div class="progress-bar bg-success" role="progressbar" style="width: ' + (array[0] * 100) + '%" aria-valuenow="' + (array[0] * 100) + '" aria-valuemin="0" aria-valuemax="100">' +
+      Math.round(array[0] * 100) + '%' +
+      '</div>' +
+      '</div>' +
+      '<div class="progress">' +
+      'VERSICOLOR : ' +
+      '<div class="progress-bar bg-info" role="progressbar" style="width: ' + (array[2] * 100) + '%" aria-valuenow="' + (array[2] * 100) + '" aria-valuemin="0" aria-valuemax="100">' +
+      Math.round(array[2] * 100) + '%' +
+      '</div>' +
+      '</div>' +
+      '<div class="progress">' + 'VIRGINICA : ' +
+      '<div class="progress-bar bg-danger" role="progressbar" style="width: ' + (array[1] * 100) + '%" aria-valuenow="' + (array[1] * 100) + '" aria-valuemin="0" aria-valuemax="100">' +
+      Math.round(array[1] * 100) + '%' +
+      '</div>' +
+      '</div>' +
+      '<div class="card-footer">' +
+      '<small class="text-muted">Date de mise à jour ' + h + ':' + m + ':' + s + '</small>' +
+      '</div>' +
+      '</div>'
+    );
+    
+
 
   }
-
-/*************************************************************************
- * 
- *                    FONCTIONS D AFFICHAGE
- * 
- ************************************************************************/
-
-  compteur++
-
-  var d = new Date();
-  var h = d.getHours();
-  var m = d.getMinutes();
-  var s = d.getSeconds();
-
-  $("#results").append(
-    '<div class="card col-lg-4">' +
-    '<div class="card-body">' +
-    '<h5 class="card-title">Test n°' + compteur + '</h5>' +
-    '<div class="progress">' +
-    'SETOSA : ' +
-    '<div class="progress-bar bg-success" role="progressbar" style="width: ' + (array[0] * 100) + '%" aria-valuenow="' + (array[0] * 100) + '" aria-valuemin="0" aria-valuemax="100">' +
-    Math.round(array[0] * 100) + '%' +
-    '</div>' +
-    '</div>' +
-    '<div class="progress">' +
-    'VERSICOLOR : ' +
-    '<div class="progress-bar bg-info" role="progressbar" style="width: ' + (array[2] * 100) + '%" aria-valuenow="' + (array[2] * 100) + '" aria-valuemin="0" aria-valuemax="100">' +
-    Math.round(array[2] * 100) + '%' +
-    '</div>' +
-    '</div>' +
-    '<div class="progress">' + 'VIRGINICA : ' +
-    '<div class="progress-bar bg-danger" role="progressbar" style="width: ' + (array[1] * 100) + '%" aria-valuenow="' + (array[1] * 100) + '" aria-valuemin="0" aria-valuemax="100">' +
-    Math.round(array[1] * 100) + '%' +
-    '</div>' +
-    '</div>' +
-    '<div class="card-footer">' +
-    '<small class="text-muted">Date de mise à jour ' + h + ':' + m + ':' + s + '</small>' +
-    '</div>' +
-    '</div>'
-  );
-
+  
 }
 
 
@@ -213,20 +212,20 @@ $('#testbtn').click(
     testData();
   });
 
-  $('#nb_couches_cachees').change(
-    function () {
-      afficherFormCoucheCachee(document.getElementById("nb_couches_cachees").value);
-    });
+$('#nb_couches_cachees').change(
+  function () {
+    afficherFormCoucheCachee(document.getElementById("nb_couches_cachees").value);
+  });
 
 
-function afficherFormCoucheCachee(value){
+function afficherFormCoucheCachee(value) {
   $("#couches_cachees").empty();
-  for(var i =1; i <= parseInt(value); i++){
+  for (var i = 1; i <= parseInt(value); i++) {
     $("#couches_cachees").append(
-      '<div class="form-group">'+
-      '<label for="constante">Nombre de neuronnes de la couche cachee numéro' + i +'</label>' +
-      '<input type="number"  step="1" value="1" id="couche_cachee' + i +'">'+
-    '</div>'
+      '<div class="form-group">' +
+      '<label for="constante">Nombre de neuronnes de la couche cachee numéro' + i + '</label>' +
+      '<input type="number"  step="1" value="1" id="couche_cachee' + i + '">' +
+      '</div>'
 
     )
 
