@@ -2,7 +2,7 @@ var model;
 var compteur = 0;
 var fonctionActivation = document.getElementById("fonction_activation").value;
 var outputList;
-
+var parametres;
 
 
 async function run() {
@@ -14,15 +14,15 @@ async function run() {
   $("#entrainement").toggle();
 
 
-  var iris = JSON.parse(document.getElementById("training-datas").value);
+  var trainingSet = JSON.parse(document.getElementById("training-datas").value);
   model = tf.sequential();
 
 
   //On récupère les données correspondant aux paramètres à prendre en compte dans nos entrées
-  var parametres;
+  parametres;
   parametres = document.getElementById("parametres").value.split(";");
 
-  const trainingData = tf.tensor2d(iris.map(
+  const trainingData = tf.tensor2d(trainingSet.map(
     function (data) {
       var formattedOutput;
       formattedOutput = [];
@@ -49,7 +49,7 @@ async function run() {
    * on aura [1,0,0]
    */
 
-  const outputData = tf.tensor2d(iris.map(
+  const outputData = tf.tensor2d(trainingSet.map(
     function (data) {
       var formattedOutput;
       formattedOutput = [];
@@ -132,17 +132,35 @@ function testData() {
 
   console.log('test de l entree');
 
-  //On récupère les caractéristiques de l'iris
+  //On récupère les caractéristiques de l'trainingSet
 
 
-  var irisTesting = JSON.parse(document.getElementById("testing-datas").value);
-  console.log("valeur des données à tester:" + irisTesting);
+  var testingSet = JSON.parse(document.getElementById("testing-datas").value);
+  /* console.log("========================== TEST DU JSON");
+  console.log(testingSet);
+  console.log("========================== VALUE");
+  console.log(testingSet[0]['sepal_length']); */
 
+  
+  var formattedInputs;
+  formattedInputs = [];
 
-  const testingData = tf.tensor2d(irisTesting.map(item => [
-    item.sepal_length, item.sepal_width, item.petal_length, item.petal_width,
-  ]))
+  // Mapping des paramètres
 
+  for(var i = 0; i< testingSet.length; i++){
+    for(var j = 0; j < parametres.length; j++){
+      console.log(i, j);
+      if (formattedInputs[i] == undefined) {
+        formattedInputs[i] = [];
+      }
+      formattedInputs[i][j] = testingSet[i][parametres[j]]; 
+    }
+  }
+console.log("formattedInputs");
+console.log(formattedInputs);
+
+  const testingData = tf.tensor2d(formattedInputs)
+      
   console.log("TESTING DATA:" + testingData);
   // Prédiction des données de test
   model.predict(testingData).print();
@@ -155,7 +173,7 @@ function testData() {
      ************************************************************************/
   
 
-  for (var i = 0; i < Object.keys(irisTesting).length; i++) {
+  for (var i = 0; i < Object.keys(testingSet).length; i++) {
 
     compteur++;
 
