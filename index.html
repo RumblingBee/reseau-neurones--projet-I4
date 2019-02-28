@@ -4,7 +4,12 @@
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
   <script src="./index.js" type="module"> </script>
   <meta charset="UTF-8">
 </head>
@@ -27,64 +32,117 @@
   </nav>
   <div class="container-fluid">
     <div class="row">
-
       <div class="col-lg-6" id="irisForm">
-        <h4> Caractéristiques du jeu de données </h4>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="data"
+              aria-selected="true">Données</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="learning-tab" data-toggle="tab" href="#learning" role="tab" aria-controls="learning"
+              aria-selected="false">Apprentissage</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="in-and-out-tab" data-toggle="tab" href="#in-and-out" role="tab" aria-controls="in-and-out"
+              aria-selected="false">Entrées/Sorties</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="hidden-layers-tab" data-toggle="tab" href="#hidden-layers" role="tab" aria-controls="hidden-layers"
+              aria-selected="false">Couches Cachées</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="training-tab" data-toggle="tab" href="#training" role="tab" aria-controls="training"
+              aria-selected="false">Entrainement</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="data" role="tabpanel" aria-labelledby="data-tab">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Caractéristiques du jeu de données</h5>
+                <div class="form-group">
+                  <label for="output-list">Sorties possibles (séparées par un ";")</label>
+                  <input type="text" value="setosa;virginica;versicolor" id="output-list">
+                </div>
+                <div class="form-group">
+                  <label for="output-key">Nom de la clef de la sortie</label>
+                  <input type="text" value="species" id="output-key">
+                </div>
+                <div class="form-group">
+                  <label for="parametres">Nom des paramètres (séparés par un point virgule)</label>
+                  <input type="text" value="sepal_length;sepal_width;petal_length;petal_width" id="parametres">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="learning" role="tabpanel" aria-labelledby="learning-tab">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Caractéristiques du réseau de neurones</h5>
+                <div class="form-group">
+                  <label for="training-number">Nombre d'entrainement</label>
+                  <input type="number" value="100" id="training-number">
+                </div>
+                <div class="form-group">
+                  <label for="constante">Constante d'apprentissage</label>
+                  <input type="number" step="0,01" value="0.06" id="constante">
+                </div>
+                <div class="form-group">
+                  <label for="fonction_activation">Fonction d'activation</label>
+                  <select class="seleted" id="fonction_activation">
+                    <option selected="sigmoid">sigmoid</option>
+                    <option>tanh</option>
+                    <option>elu</option>
+                    <option>selu</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="fonction_erreur">Fonction d'erreur</label>
+                  <select class="seleted" id="fonction_erreur">
+                    <option selected="meanSquaredError">meanSquaredError</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="in-and-out" role="tabpanel" aria-labelledby="in-and-out-tab">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Multicouche</h5>
+                <div class="form-group">
+                  <label for="constante">Nombre de neuronnes de la couche d'entrée</label>
+                  <input type="number" step="1" value="4" id="couche_entree">
+                </div>
+                <div class="form-group">
+                  <label for="constante">Nombre de neurones de la couche de sortie</label>
+                  <input type="number" step="1" value="3" id="couche_sortie">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="hidden-layers" role="tabpanel" aria-labelledby="hidden-layers-tab">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Couches Cachées</h5>
+                <div class="form-group">
+                  <label for="constante">Nombre de couches cachées</label>
+                  <input type="number" step="1" value="1" id="nb_couches_cachees">
+                </div>
+                <div id="couches_cachees">
 
-        <div class="form-group">
-          <label for="output-list">Sorties possibles (séparées par un ";")</label>
-          <input type="text" value="setosa;virginica;versicolor" id="output-list">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="training" role="tabpanel" aria-labelledby="training-tab">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Lancer l'entrainement</h5>
+                <button class="btn btn-primary" id="entrainerbtn">Entrainer le réseau</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="output-key">Nom de la clef de la sortie</label>
-          <input type="text" value="species" id="output-key">
-        </div>
-        <div class="form-group">
-          <label for="parametres">Nom des paramètres (séparés par un point virgule)</label>
-          <input type="text" value="sepal_length;sepal_width;petal_length;petal_width" id="parametres">
-        </div>
-        <h4> Caractéristiques du réseau de neurones</h4>
-        <div class="form-group">
-          <label for="training-number">Nombre d'entrainement</label>
-          <input type="number" value="100" id="training-number">
-        </div>
-        <div class="form-group">
-          <label for="constante">Constante d'apprentissage</label>
-          <input type="number"  step="0,01" value="0.06" id="constante">
-        </div>
-        <div class="form-group">
-          <label for="fonction_activation">Fonction d'activation</label>
-          <select class="seleted" id="fonction_activation">
-            <option selected="sigmoid">sigmoid</option>            
-            <option>tanh</option>            
-            <option>elu</option>            
-            <option>selu</option>            
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="fonction_erreur">Fonction d'erreur</label>
-          <select class="seleted" id="fonction_erreur">
-            <option selected="meanSquaredError">meanSquaredError</option>                     
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="constante">Nombre de neuronnes de la couche d'entrée</label>
-          <input type="number"  step="1" value="4" id="couche_entree">
-        </div>
-        <div class="form-group">
-          <label for="constante">Nombre de neurones de la couche de sortie</label>
-          <input type="number"  step="1" value="3" id="couche_sortie">
-        </div>
-        <h4> Couches cachées</h4>
-        <div class="form-group">
-          <label for="constante">Nombre de couches cachées</label>
-          <input type="number"  step="1" value="1" id="nb_couches_cachees">
-        </div>
-        <div id="couches_cachees">
-
-        </div>
-
-       <br /><button class="btn btn-primary" id="entrainerbtn">Entrainer le réseau</button>
       </div>
       <div class="col-lg-6" id="exemple">
         <h4> Données: </h4>
@@ -1124,7 +1182,7 @@
   }
 ]
           </textarea>
-        </div> 
+        </div>
 
         <div class="form-group">
           <label for="testing-datas">Données à tester:</label>
@@ -1153,10 +1211,10 @@
   }
 ]
           </textarea>
-        </div> 
-      
+        </div>
 
-          Plus d'exemples <a href="https://fr.wikipedia.org/wiki/Iris_de_Fisher"> ici </a>
+
+        Plus d'exemples <a href="https://fr.wikipedia.org/wiki/Iris_de_Fisher"> ici </a>
 
         </p>
         <br /><button class="btn btn-primary" id="testbtn">Tester</button>
@@ -1166,21 +1224,22 @@
 
     </div>
 
-  <div id="entrainement" style="display:none;">Entrainement en cours, merci de patienter...</div>
+    <div id="entrainement" style="display:none;">Entrainement en cours, merci de patienter...</div>
 
-  <hr>
+    <hr>
 
-  <div id="resultats" style="display:none;">
-  <h4> Résultats:</h4>
-  
-  <div class="row" id="results"></div>
-</div>
+    <div id="resultats" style="display:none;">
+      <h4> Résultats:</h4>
+
+      <div class="row" id="results"></div>
+    </div>
   </div>
-</div>
+  </div>
 
   <footer class="footer mt-auto py-3">
     <div class="container">
-      <span class="text-muted">EPSI 2018-19 : Un projet réalisé par Julien BOMBLED, Maxime DEZETTE, Pierrick PATRICOT et Fleury TIMBE</span>
+      <span class="text-muted">EPSI 2018-19 : Un projet réalisé par Julien BOMBLED, Maxime DEZETTE, Pierrick PATRICOT
+        et Fleury TIMBE</span>
     </div>
   </footer>
 </body>

@@ -136,19 +136,16 @@ function testData() {
 
 
   var testingSet = JSON.parse(document.getElementById("testing-datas").value);
-  console.log("========================== TEST DU JSON");
+  /* console.log("========================== TEST DU JSON");
   console.log(testingSet);
   console.log("========================== VALUE");
-  console.log(testingSet[0]['sepal_length']);
+  console.log(testingSet[0]['sepal_length']); */
 
   
   var formattedInputs;
   formattedInputs = [];
 
-  console.log("JSON length");
-  console.log(testingSet.length);
-  console.log("paramteres length");
-  console.log(parametres.length);
+  // Mapping des paramètres
 
   for(var i = 0; i< testingSet.length; i++){
     for(var j = 0; j < parametres.length; j++){
@@ -164,11 +161,6 @@ console.log(formattedInputs);
 
   const testingData = tf.tensor2d(formattedInputs)
       
-
-
-    
-
-
   console.log("TESTING DATA:" + testingData);
   // Prédiction des données de test
   model.predict(testingData).print();
