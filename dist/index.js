@@ -1,6 +1,7 @@
 var model;
 var compteur = 0;
 var fonctionActivation = document.getElementById("fonction_activation").value;
+var outputList;
 
 
 
@@ -34,7 +35,7 @@ async function run() {
   ))
   console.log("item: " + trainingData);
 
-  var outputList = document.getElementById("output-list").value.split(";");
+  outputList = document.getElementById("output-list").value.split(";");
   console.log("outputlist: " + outputList);
 
   //On définie les sorties possibles
@@ -142,7 +143,7 @@ function testData() {
     item.sepal_length, item.sepal_width, item.petal_length, item.petal_width,
   ]))
 
-  console.log(irisTesting);
+  console.log("TESTING DATA:" + testingData);
   // Prédiction des données de test
   model.predict(testingData).print();
   const values = model.predict(testingData);
@@ -166,34 +167,21 @@ function testData() {
     var s = d.getSeconds();
 
     $("#results").append(
-      '<div class="card col-lg-4">' +
+      '<div class="card col-lg-4" id="card_'+ compteur + '">' +
       '<div class="card-body">' +
-      '<h5 class="card-title">Test n°' + compteur + '</h5>' +
-
+      '<h5 class="card-title">Test n°' + compteur + '</h5>' 
+      );
       
-      '<div class="progress">' +
-      'SETOSA : ' +
-      '<div class="progress-bar bg-success" role="progressbar" style="width: ' + (array[0] * 100) + '%" aria-valuenow="' + (array[0] * 100) + '" aria-valuemin="0" aria-valuemax="100">' +
-      Math.round(array[0] * 100) + '%' +
-      '</div>' +
-      '</div>' +
-      '<div class="progress">' +
-      'VERSICOLOR : ' +
-      '<div class="progress-bar bg-info" role="progressbar" style="width: ' + (array[2] * 100) + '%" aria-valuenow="' + (array[2] * 100) + '" aria-valuemin="0" aria-valuemax="100">' +
-      Math.round(array[2] * 100) + '%' +
-      '</div>' +
-      '</div>' +
-      '<div class="progress">' + 'VIRGINICA : ' +
-      '<div class="progress-bar bg-danger" role="progressbar" style="width: ' + (array[1] * 100) + '%" aria-valuenow="' + (array[1] * 100) + '" aria-valuemin="0" aria-valuemax="100">' +
-      Math.round(array[1] * 100) + '%' +
-      '</div>' +
-      '</div>' +
-      '<div class="card-footer">' +
-      '<small class="text-muted">Date de mise à jour ' + h + ':' + m + ':' + s + '</small>' +
-      '</div>' +
-      '</div>'
-    );
-    
+    for(var j = 0; j < outputList.length; j++){
+      $("#card_"+compteur).append(
+        '<div class="progress">' +
+        outputList[j]+
+        '<div class="progress-bar bg-success" role="progressbar" style="width: ' + (array[j] * 100) + '%" aria-valuenow="' + (array[j] * 100) + '" aria-valuemin="0" aria-valuemax="100">' +
+        Math.round(array[j] * 100) + '%' +
+        '</div>' +
+        '</div>' 
+      );
+    } 
 
 
   }
