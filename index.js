@@ -183,6 +183,12 @@ function testData() {
       );
     } 
 
+    $("#card_"+compteur).append(
+    '<div class="card-footer">' +
+    '<small class="text-muted">Date de mise à jour ' + h + ':' + m + ':' + s + '</small>' +
+    '</div>'
+    );
+
 
   }
   
