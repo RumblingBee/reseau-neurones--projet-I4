@@ -21,7 +21,7 @@
       <div class="navbar-nav">
         <a class="nav-item nav-link active" href="#">Accueil <span class="sr-only">(current)</span></a>
         <a class="nav-item nav-link" href="/choix_techniques.html">Choix techniques</a>
-        <a class="nav-item nav-link" href="#">Fonctionnement</a>
+        <a class="nav-item nav-link" href="/fonctionnement.pdf">Fonctionnement</a>
       </div>
     </div>
   </nav>
@@ -56,6 +56,15 @@
           <label for="fonction_activation">Fonction d'activation</label>
           <select class="seleted" id="fonction_activation">
             <option selected="sigmoid">sigmoid</option>            
+            <option>tanh</option>            
+            <option>elu</option>            
+            <option>selu</option>            
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="fonction_erreur">Fonction d'erreur</label>
+          <select class="seleted" id="fonction_erreur">
+            <option selected="meanSquaredError">meanSquaredError</option>                     
           </select>
         </div>
         <div class="form-group">

@@ -106,7 +106,7 @@ async function run() {
 
   // Fonction d'erreur
   model.compile({
-    loss: "meanSquaredError",
+    loss: document.getElementById("fonction_erreur").value,
     optimizer: tf.train.adam(document.getElementById("constante").value),
   })
   // Entrainement du réseau
@@ -156,6 +156,8 @@ function testData() {
 
   for (var i = 0; i < Object.keys(irisTesting).length; i++) {
 
+    compteur++;
+
     var array = Array.prototype.slice.call(values.slice([i, 0], 1).as1D().dataSync());
     
     var d = new Date();
@@ -166,7 +168,7 @@ function testData() {
     $("#results").append(
       '<div class="card col-lg-4">' +
       '<div class="card-body">' +
-      '<h5 class="card-title">Test n°' + (i+1) + '</h5>' +
+      '<h5 class="card-title">Test n°' + compteur + '</h5>' +
 
       
       '<div class="progress">' +

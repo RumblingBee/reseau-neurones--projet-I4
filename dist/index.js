@@ -1,8 +1,7 @@
 var model;
 var compteur = 0;
 var fonctionActivation = document.getElementById("fonction_activation").value;
-var outputList;
-outputList = [];
+
 
 
 async function run() {
@@ -35,7 +34,7 @@ async function run() {
   ))
   console.log("item: " + trainingData);
 
-  outputList = document.getElementById("output-list").value.split(";");
+  var outputList = document.getElementById("output-list").value.split(";");
   console.log("outputlist: " + outputList);
 
   //On définie les sorties possibles
@@ -107,7 +106,7 @@ async function run() {
 
   // Fonction d'erreur
   model.compile({
-    loss: "meanSquaredError",
+    loss: document.getElementById("fonction_erreur").value,
     optimizer: tf.train.adam(document.getElementById("constante").value),
   })
   // Entrainement du réseau
@@ -140,7 +139,7 @@ function testData() {
 
 
   const testingData = tf.tensor2d(irisTesting.map(item => [
-    item.outputList[0], item.outputList[1], item.outputList[2], item.outputList[3],
+    item.sepal_length, item.sepal_width, item.petal_length, item.petal_width,
   ]))
 
   console.log(irisTesting);
@@ -157,6 +156,8 @@ function testData() {
 
   for (var i = 0; i < Object.keys(irisTesting).length; i++) {
 
+    compteur++;
+
     var array = Array.prototype.slice.call(values.slice([i, 0], 1).as1D().dataSync());
     
     var d = new Date();
@@ -167,9 +168,9 @@ function testData() {
     $("#results").append(
       '<div class="card col-lg-4">' +
       '<div class="card-body">' +
-      '<h5 class="card-title">Test n°' + (i+1) + '</h5>' +
+      '<h5 class="card-title">Test n°' + compteur + '</h5>' +
 
-
+      
       '<div class="progress">' +
       'SETOSA : ' +
       '<div class="progress-bar bg-success" role="progressbar" style="width: ' + (array[0] * 100) + '%" aria-valuenow="' + (array[0] * 100) + '" aria-valuemin="0" aria-valuemax="100">' +
